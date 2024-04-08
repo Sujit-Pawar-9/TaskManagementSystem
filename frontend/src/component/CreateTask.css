@@ -1,0 +1,39 @@
+.create-task-container {
+    max-width: 400px; /* Reduce maximum width */
+    margin: 10px auto; /* Adjust margin: 10px top-bottom, auto for left-right */
+    padding: 20px; /* Maintain padding */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  input[type='text'],
+  input[type='checkbox'] {
+    width: calc(100% - 20px); /* Adjust width to consider padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 600px) {
+    .create-task-container {
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+  }
+  
