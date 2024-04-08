@@ -23,8 +23,8 @@ const HeaderComponent = () => {
             <nav className="fixed-top navbar navbar-expand-lg navbar-light">
                 <div className="container">
                     <a className="navbar-brand fw-bold">
-                        <img src={logo} alt="logo" width={30} height={30} />
-                    </a>
+                         <img src={logo} alt="logo" width={30} height={30} />
+                         &nbsp;&nbsp;TASK MANAGER  </a>
                     <ul className="navbar-nav gap-4">
                         {/* {
                             isAuth &&
@@ -47,15 +47,18 @@ const HeaderComponent = () => {
                                 <NavLink className='nav-link' to='/login'>Login</NavLink>
                             </li>
                         }
-                        {/* {
+                        {
                             isAuth &&
                             <li className="nav-item">
                                 <NavLink className='nav-link' to='/login' onClick={handleLogout}>Logout</NavLink>
                             </li>
-                        } */}
+                        }
+                        {
+                            isAuth &&
                         <li className="nav-item">
-                                <NavLink className='nav-link' to='/history' onClick={handleLogout}>Task</NavLink>
-                            </li>
+                                <NavLink className='nav-link' to='/history'>Task History</NavLink>
+                        </li>
+                        }
                     </ul>
                 </div>
             </nav>

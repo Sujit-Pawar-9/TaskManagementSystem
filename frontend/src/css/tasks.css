@@ -31,4 +31,10 @@
     max-width: 600px; /* Adjust the width as needed */
     margin: 0 auto; /* Center the table horizontally */
   }
+  .edit-task-container {
+    position: fixed;
+    top: calc(50% - 120px); /* 50% from the top minus 120 pixels */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center vertically */
+  }
   

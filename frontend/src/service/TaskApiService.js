@@ -20,10 +20,10 @@ export const createTask = (task) => API_BASE_URL.post('/addnewtask',task)
 
 export const retrieveTaskById = (taskId) => axios.get(API_BASE_URL + '/' + taskId)
 
-export const updateTask = (task, id) => axios.put(API_BASE_URL + '/' + id, task)
+export const updateTask = (task, id) => API_BASE_URL.put('/' + id, task)
 
-export const deleteTask = (id) => axios.delete(API_BASE_URL + '/' + id)
+export const deleteTask = (id) => API_BASE_URL.delete('/' + id)
 
-export const markDone = (id) => axios.patch(API_BASE_URL + '/' + id + '/task-done')
+export const markDone = (id) => API_BASE_URL.patch('/' + id + '/task-done')
 
 export const markPending = (id) => axios.patch(API_BASE_URL + '/' + id + '/task-pending')
