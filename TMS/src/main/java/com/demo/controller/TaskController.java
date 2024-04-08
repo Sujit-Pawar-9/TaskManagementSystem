@@ -40,25 +40,35 @@ public class TaskController {
 
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-//
-//    // Get a single task by ID
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
-//        Task task = taskService.getTaskById(id);
-//        return new ResponseEntity<>(task, HttpStatus.OK);
-//    }
-//
-//    // Update a task by ID
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Task> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
-//        Task updatedTask = taskService.updateTask(id, task);
-//        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
-//    }
-//
-//    // Delete a task by ID
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-//        taskService.deleteTask(id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateTask(@PathVariable Integer id, @RequestBody Task updatedTask) {
+        Task existingTask = taskService.getTaskById(id);
+        if (existingTask != null) {
+            updatedTask.setId(id);
+            Task updatedTaskResult = taskService.updateTask(updatedTask);
+            return ResponseEntity.ok(updatedTaskResult);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Delete a task by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Integer id) {
+        taskService.deleteTask(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PatchMapping("/{id}/task-done")
+    public ResponseEntity<String> markTaskAsDone(@PathVariable Integer id) {
+        // Logic to mark the task as done
+        // You can implement this logic using your service layer
+        // For example, you might call a service method to update the task status
+        // Assuming you have a service class called TaskService
+        
+        taskService.markTaskAsDone(id);
+
+        // Return a success message
+        return ResponseEntity.status(HttpStatus.OK).body("Task marked as done successfully");
+    }
+
 }

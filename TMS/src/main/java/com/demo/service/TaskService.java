@@ -9,6 +9,14 @@ public interface TaskService {
 
 	List<Task> getAllTasks();
 
+	void deleteTask(Integer id);
+
+	Task getTaskById(Integer id);
+
+	Task updateTask(Task updatedTask);
+
+	void markTaskAsDone(Integer id);
+
 //    ApiResponse getTaskById(Integer taskId);
 //
 //    List<Task> getAllTasks(Long userId);
