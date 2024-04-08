@@ -1,59 +1,64 @@
 package com.demo.controller;
-
-import com.demo.dto.ApiResponse;
-import com.demo.model.Task;
-import com.demo.service.TaskService;
-import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.demo.model.Task;
+import com.demo.service.TaskService;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 
-    private final TaskService service;
+    private final TaskService taskService;
 
-    public TaskController(TaskService service) {
-        this.service = service;
+    @Autowired
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
-    @PostMapping("/user/{id}")
-    public ResponseEntity<ApiResponse> createTask(@Valid @RequestBody Task task, @PathVariable("id") Long userId){
-        return new ResponseEntity<>(service.createTask(task, userId), HttpStatus.CREATED);
+    // Create a new task
+    @PostMapping("/addnewtask")
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    	System.out.println("task created");
+        Task createdTask = taskService.createTask(task);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<Task>> getAllTasks(@PathVariable("id") Long userId){
-        return new ResponseEntity<>(service.getAllTasks(userId), HttpStatus.OK);
-    }
+//     Get all tasks
+    @GetMapping("/getall")
+    public ResponseEntity<List<Task>> getAllTasks() {
+        System.out.println("task listed");
+        List<Task> tasks = taskService.getAllTasks();
+        
+        // Print the tasks on the console
+        tasks.forEach(task -> System.out.println(task));
 
-    @GetMapping("/{taskId}")
-    public ResponseEntity<ApiResponse> getTaskById(@PathVariable Integer taskId){
-        return new ResponseEntity<>(service.getTaskById(taskId), HttpStatus.OK);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> updateTask(@PathVariable Integer id,@Valid @RequestBody Task task){
-        return new ResponseEntity<>(service.updateTask(task, id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTaskById(@PathVariable Integer id){
-        service.deleteTask(id);
-        return ResponseEntity.ok("Task deleted successfully");
-    }
-
-    @PatchMapping("/{id}/task-done")
-    public ResponseEntity<ApiResponse> completedTodo(@PathVariable Integer id){
-        return ResponseEntity.ok(service.doneTask(id));
-    }
-
-    @PatchMapping("/{id}/task-pending")
-    public ResponseEntity<ApiResponse> inCompletedTodo(@PathVariable Integer id){
-        return ResponseEntity.ok(service.pendingTask(id));
-    }
+//
+//    // Get a single task by ID
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+//        Task task = taskService.getTaskById(id);
+//        return new ResponseEntity<>(task, HttpStatus.OK);
+//    }
+//
+//    // Update a task by ID
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Task> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
+//        Task updatedTask = taskService.updateTask(id, task);
+//        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+//    }
+//
+//    // Delete a task by ID
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+//        taskService.deleteTask(id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 }
