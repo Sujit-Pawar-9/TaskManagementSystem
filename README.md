@@ -25,7 +25,3 @@ Authentication ensures that only authorized users can perform operations.
 **Server:** Java, Spring Boot
 
 **Database:** MySQL
-
-
-
-#### Screenshots
