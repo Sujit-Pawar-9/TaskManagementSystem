@@ -68,11 +68,10 @@ const AddTaskComponent = ({ userId }) => {
             <Container>
                 <Row className="justify-content-center align-items-center">
                     <Col lg={4}>
-                        <p className="fs-3">Add1 task</p>
+                        <p className="fs-3">Add task</p>
                         <form className="bg-light shadow-lg p-4">
                             <div className="form-group mb-2">
                             
-                                sss
                                 <textarea
                                     type="text"
                                     placeholder="task"
