@@ -8,6 +8,8 @@ import TasksComponent from './component/TasksComponent'
 import AddTaskComponent from './component/AddTaskComponent'
 import TaskHistory from './component/TaskHistory'
 import EditTask from "./component/EditTask";
+import ViewTask from "./component/ViewTask";
+
 
 function App() {
   const activeUserId = getLoggedInUserId()
@@ -44,6 +46,7 @@ function App() {
             </AuthenticatedRoute>
           } />
           <Route path="/edit-task/:taskId" element={<EditTask />} /> 
+          <Route path="/view-task/:taskId" element={<ViewTask />} /> 
           <Route path='/create-account' element={<CreateAccount />} />
           <Route path='/login' element={<LoginComponent />} />
         </Routes>

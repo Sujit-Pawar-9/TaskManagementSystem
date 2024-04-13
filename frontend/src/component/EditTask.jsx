@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { retrieveTaskById, updateTask } from "../service/TaskApiService";
 import '../css/tasks.css'
+
 const EditTask = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
@@ -40,17 +41,36 @@ const EditTask = () => {
       <h2>Edit Task</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="task">Task:</label>
+          <label htmlFor="title">Task title:</label>
           <input
             type="text"
-            id="task"
-            name="task"
-            value={task.task || ""}
+            id="title"
+            name="title"
+            value={task.title || ""}
             onChange={handleInputChange}
             required
           />
         </div>
-        <br></br>
+        <div>
+          <label htmlFor="description">Description:</label>
+          <textarea
+            id="description"
+            name="description"
+            value={task.description || ""}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="dueDate">Due Date:</label>
+          <input
+            type="date"
+            id="dueDate"
+            name="dueDate"
+            value={task.dueDate || ""}
+            onChange={handleInputChange}
+          />
+        </div>
         <button type="submit">Update Task</button>
       </form>
     </div>

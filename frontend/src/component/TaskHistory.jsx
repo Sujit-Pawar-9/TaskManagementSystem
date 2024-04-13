@@ -34,65 +34,72 @@ const TaskHistory = () => {
       };
 
     const handleEdit = (taskId) => {
-        // Navigate to the edit page for the selected task
+        
         navigate(`/edit-task/${taskId}`);
+    };
+    const handleView = (taskId) => {
+      
+      navigate(`/view-task/${taskId}`);
     };
     const handleback = () =>{
       navigate(`/tasks`)
     }
     return (
-        <div className="TaskHistory">
-          <h2>Task List</h2>
-          <div className="table-responsive">
+      <div className="TaskHistory">
+        <h2>Task List</h2>
+        <div className="table-responsive">
           <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tasks.map((task) => (
-                            <tr key={task.id}>
-                                <td> {task.completed ? (
-                                        <span style={{ marginRight: '5px' }}>✔️</span>
-                                    ) : (
-                                        <span style={{ marginRight: '5px' }}>❌</span>
-                                    )}{task.task}</td>
-                                <td>{task.taskCreatedAt}</td>
-                                <td>
-                                    <button
-                                        type="button"
-                                        className="btn btn-danger"
-                                        onClick={() => handleDelete(task.id)}
-                                    >
-                                        Delete
-                                    </button>
-                                    </td>
-                                <td>
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary ms-2"
-                                        onClick={() => handleEdit(task.id)}
-                                    >
-                                        Edit
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            <button
-                    type="button"
-                    className="btn btn-primary ms-2"
-                    onClick={() => handleback()}
-                  >
-                    Back
-                  </button>
-          </div>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Task Title</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tasks.map((task) => (
+                <tr key={task.id}>
+                  <td>{task.completed ? <span style={{ color: 'blue' }}>✔️</span> : "⌛"}</td>
+                  <td>{task.title}</td>
+                  <td>{task.taskCreatedAt}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(task.id)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary ms-2"
+                      onClick={() => handleEdit(task.id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary ms-2"
+                      onClick={() => handleView(task.id)}
+                    >
+                      view 
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button
+            type="button"
+            className="btn btn-primary ms-2"
+            onClick={handleback}
+          >
+            Back
+          </button>
         </div>
-      );
+      </div>
+    );
 }
 
 export default TaskHistory

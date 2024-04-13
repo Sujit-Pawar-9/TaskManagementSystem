@@ -43,6 +43,7 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Integer id, @RequestBody Task updatedTask) {
         Task existingTask = taskService.getTaskById(id);
+//        System.out.println(existingTask.getTitle());
         if (existingTask != null) {
             updatedTask.setId(id);
             Task updatedTaskResult = taskService.updateTask(updatedTask);
@@ -70,5 +71,15 @@ public class TaskController {
         // Return a success message
         return ResponseEntity.status(HttpStatus.OK).body("Task marked as done successfully");
     }
+    @GetMapping("/getTaskbyid/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable Integer id) {
+        Task task = taskService.getTaskById(id);
+        if (task != null) {
+            return ResponseEntity.ok(task);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }

@@ -2,9 +2,8 @@ package com.demo.model;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "task")
+@Table(name = "tasks")
 public class Task {
 
     @Id
@@ -12,9 +11,15 @@ public class Task {
     private Integer id;
 
     @Column(nullable = false)
-    
-    private String task;
+    private String title;
 
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private String dueDate;
+
+    @Column(nullable = false)
     private Boolean completed;
 
     private String taskCreatedAt;
@@ -24,8 +29,10 @@ public class Task {
     public Task() {
     }
 
-    public Task(String task, Boolean completed, String taskCreatedAt) {
-        this.task = task;
+    public Task(String title, String description, String dueDate, Boolean completed, String taskCreatedAt) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
         this.completed = completed;
         this.taskCreatedAt = taskCreatedAt;
     }
@@ -38,12 +45,28 @@ public class Task {
         this.id = id;
     }
 
-    public String getTask() {
-        return task;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public Boolean getCompleted() {
@@ -62,11 +85,10 @@ public class Task {
         this.taskCreatedAt = taskCreatedAt;
     }
 
-	@Override
-	public String toString() {
-		return "Task [id=" + id + ", task=" + task + ", completed=" + completed + ", taskCreatedAt=" + taskCreatedAt
-				+ "]";
-	}
-    
-}
+    @Override
+    public String toString() {
+        return "Task [id=" + id + ", title=" + title + ", description=" + description + ", dueDate=" + dueDate
+                + ", completed=" + completed + ", taskCreatedAt=" + taskCreatedAt + "]";
+    }
 
+}

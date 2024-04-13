@@ -20,6 +20,7 @@ export const createTask = (task) => API_BASE_URL.post('/addnewtask',task)
 
 export const retrieveTaskById = (taskId) => axios.get(API_BASE_URL + '/' + taskId)
 
+export const getTaskById = (taskId) => API_BASE_URL.get('/getTaskbyid/' + taskId)
 export const updateTask = (task, id) => API_BASE_URL.put('/' + id, task)
 
 export const deleteTask = (id) => API_BASE_URL.delete('/' + id)

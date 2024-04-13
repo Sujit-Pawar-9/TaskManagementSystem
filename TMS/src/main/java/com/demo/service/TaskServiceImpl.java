@@ -45,9 +45,10 @@ public class TaskServiceImpl implements TaskService {
 	        
 	        if (existingTask != null) {
 	            // Update the existing task with the new information
-	            existingTask.setTask(updatedTask.getTask());
-	            existingTask.setCompleted(updatedTask.getCompleted());
-	            existingTask.setTaskCreatedAt(updatedTask.getTaskCreatedAt());
+	            existingTask.setTitle(updatedTask.getTitle());
+	            
+	            existingTask.setDescription(updatedTask.getDescription());
+	            existingTask.setDueDate(updatedTask.getDueDate());
 
 	            // Save the updated task
 	            return taskRepository.save(existingTask);

@@ -86,7 +86,7 @@ const TasksComponent = ({ userId }) => {
                                         />
                                         <div
                                             className={`border-top border-bottom border-secondary w-100 py-3 ${task.completed ? 'text-decoration-line-through text-secondary' : 'bg-white'}`}
-                                        >{task.task}</div>
+                                        >{task.title}</div>
                                     </div>
                                     <div className="d-flex justify-content-end text-secondary fw-bolder mb-4" style={{ fontSize: "11px" }}>
                                         {task.taskCreatedAt}
