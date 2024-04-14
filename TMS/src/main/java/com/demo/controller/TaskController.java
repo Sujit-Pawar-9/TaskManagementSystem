@@ -82,4 +82,25 @@ public class TaskController {
     }
 
 
+    @GetMapping("/sortedByDueDate")
+    public ResponseEntity<List<Task>> getAllTasksSortedByDueDate() {
+        // Call the repository method to retrieve sorted tasks
+        List<Task> sortedTasks = taskService.findAllByOrderByDueDateAsc();
+        System.out.println("Sorted Tasks:");
+        sortedTasks.forEach(task -> System.out.println(task));
+        return new ResponseEntity<>(sortedTasks, HttpStatus.OK);
+    }
+    
+    @GetMapping("/sortedByDueDateDesc")
+    public ResponseEntity<List<Task>> getAllTasksSortedByDueDateDesc() {
+        // Call the service method to retrieve sorted tasks in descending order
+        List<Task> sortedTasks = taskService.findAllByOrderByDueDateDesc();
+        
+        // Print sorted tasks on the console
+        System.out.println("Sorted Tasks (Descending ):");
+        sortedTasks.forEach(System.out::println);
+        
+        return new ResponseEntity<>(sortedTasks, HttpStatus.OK);
+    }
+
 }

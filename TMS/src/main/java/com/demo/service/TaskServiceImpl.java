@@ -32,7 +32,6 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void deleteTask(Integer id) {
 		taskRepository.deleteById(id);
-		
 	}
 
 	public Task getTaskById(Integer id) {
@@ -78,6 +77,18 @@ public class TaskServiceImpl implements TaskService {
 	         throw new NoSuchElementException("Task with id " + id + " not found");
 	     }
 	 }
+
+	@Override
+	public List<Task> findAllByOrderByDueDateAsc() {
+		return taskRepository.findAllByOrderByDueDateAsc();
+		 
+	}
+
+	@Override
+	public List<Task> findAllByOrderByDueDateDesc() {
+		// TODO Auto-generated method stub
+		return taskRepository.findAllByOrderByDueDateDesc();
+	}
 
 
 	

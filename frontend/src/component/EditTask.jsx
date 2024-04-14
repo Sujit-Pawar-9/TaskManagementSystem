@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { retrieveTaskById, updateTask } from "../service/TaskApiService";
+import { getTaskById, updateTask } from "../service/TaskApiService";
 import '../css/tasks.css'
 
 const EditTask = () => {
@@ -11,7 +11,7 @@ const EditTask = () => {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await retrieveTaskById(taskId);
+        const response = await getTaskById(taskId);
         setTask(response.data);
       } catch (error) {
         console.error("Error fetching task:", error);
@@ -30,7 +30,8 @@ const EditTask = () => {
     event.preventDefault();
     try {
       await updateTask(task, taskId);
-      navigate("/tasks"); // Navigate back to the task list after updating
+      
+      navigate("/history"); // Navigate back to the task list after updating
     } catch (error) {
       console.error("Error updating task:", error);
     }

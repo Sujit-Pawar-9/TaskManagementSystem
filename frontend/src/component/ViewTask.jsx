@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTaskById } from "../service/TaskApiService";
-
+import "./viewTask.css"; 
 const ViewTask = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
@@ -26,16 +26,22 @@ const ViewTask = () => {
     return <div>Loading...</div>;
   }
 
+  
   return (
-    <div>
-      <h2>View Task</h2>
-      <p><strong>Title:</strong> {task.title}</p>
-      <p><strong>Description:</strong> {task.description}</p>
-      <p><strong>Due Date:</strong> {task.dueDate}</p>
-      {/* Add any other task details you want to display */}
-      <button onClick={() => navigate("/tasks")}>Back to Task List</button>
+    <div className="view-task-container">
+      <div className="view-task-content">
+        <h2 className="view-task-title">Task Details</h2>
+        <div className="view-task-details">
+          <p><strong>Title:</strong> {task.title}</p>
+          <p><strong>Description:</strong> {task.description}</p>
+          <p><strong>Due Date:</strong> {task.dueDate}</p>
+          {/* Add any other task details you want to display */}
+        </div>
+        <button className="view-task-button" onClick={() => navigate("/history")}>Back to Task List</button>
+      </div>
     </div>
   );
+
 };
 
 export default ViewTask;

@@ -1,0 +1,30 @@
+/* viewTask.css */
+
+.view-task-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .view-task-content {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .view-task-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .view-task-details p {
+    margin: 10px 0;
+  }
+  
+  .view-task-button {
+    margin-top: 20px;
+  }
+  

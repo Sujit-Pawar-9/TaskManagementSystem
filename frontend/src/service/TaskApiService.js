@@ -15,7 +15,8 @@ axios.interceptors.request.use(config => {
 
  export const retrieveAllTasks = () => API_BASE_URL.get('/getall');
 // export const registerApi = (user) => authApiClient.post('/register', user)
-
+export const retrieveAllTasksforsort = () => API_BASE_URL.get('/sortedByDueDate');
+export const retrieveAllTasksforsortdesc= () => API_BASE_URL.get('/sortedByDueDateDesc');
 export const createTask = (task) => API_BASE_URL.post('/addnewtask',task)
 
 export const retrieveTaskById = (taskId) => axios.get(API_BASE_URL + '/' + taskId)

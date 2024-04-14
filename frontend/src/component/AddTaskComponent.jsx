@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
-import { createTask } from "../service/TaskApiService"
+import React, { useState } from "react";
+import { createTask } from "../service/TaskApiService";
 import { Container, Row, Col } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const AddTaskComponent = () => {
-
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
+    const [priority, setPriority] = useState('low'); // Default priority is set to low
     const [completed, setCompleted] = useState(false);
     const taskCreatedAt = new Date().toDateString();
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const AddTaskComponent = () => {
         event.preventDefault();
 
         if (validateForm()) {
-            const taskObj = { title, description, dueDate, completed, taskCreatedAt };
+            const taskObj = { title, description, dueDate, priority, completed, taskCreatedAt };
             createTask(taskObj)
                 .then(() => navigate('/tasks'))
                 .catch(error => console.error(error));
@@ -98,6 +98,48 @@ const AddTaskComponent = () => {
                                     onChange={(event) => setDueDate(event.target.value)}
                                 />
                                 {errors.dueDate && <div className="invalid-feedback">{errors.dueDate}</div>}
+                            </div>
+                            {/* Priority Selection */}
+                            <div className="form-group mb-2">
+                                <label>Priority:</label>
+                                <div>
+                                    <div className="form-check form-check-inline">
+                                        <input
+                                            type="radio"
+                                            id="lowPriority"
+                                            name="priority"
+                                            value="low"
+                                            className="form-check-input"
+                                            checked={priority === 'low'}
+                                            onChange={() => setPriority('low')}
+                                        />
+                                        <label htmlFor="lowPriority" className="form-check-label">Low</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input
+                                            type="radio"
+                                            id="mediumPriority"
+                                            name="priority"
+                                            value="medium"
+                                            className="form-check-input"
+                                            checked={priority === 'medium'}
+                                            onChange={() => setPriority('medium')}
+                                        />
+                                        <label htmlFor="mediumPriority" className="form-check-label">Medium</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input
+                                            type="radio"
+                                            id="highPriority"
+                                            name="priority"
+                                            value="high"
+                                            className="form-check-input"
+                                            checked={priority === 'high'}
+                                            onChange={() => setPriority('high')}
+                                        />
+                                        <label htmlFor="highPriority" className="form-check-label">High</label>
+                                    </div>
+                                </div>
                             </div>
                             <button className="btn btn-dark" onClick={(event) => saveTask(event)}>Create Task</button>
                         </form>

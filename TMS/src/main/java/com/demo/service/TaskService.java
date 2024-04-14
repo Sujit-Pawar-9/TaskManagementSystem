@@ -17,6 +17,10 @@ public interface TaskService {
 
 	void markTaskAsDone(Integer id);
 
+	List<Task> findAllByOrderByDueDateAsc();
+
+	List<Task> findAllByOrderByDueDateDesc();
+
 //    ApiResponse getTaskById(Integer taskId);
 //
 //    List<Task> getAllTasks(Long userId);
