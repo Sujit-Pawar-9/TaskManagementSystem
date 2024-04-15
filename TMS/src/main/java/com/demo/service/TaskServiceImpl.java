@@ -21,7 +21,9 @@ public class TaskServiceImpl implements TaskService {
 		taskRepository.save(task);
 		return null;
 	}
-
+	public List<Task> getUserTasks(Long userId) {
+        return taskRepository.findByUserId(userId);
+    }
 	@Override
 	public List<Task> getAllTasks() {
 		List<Task> tasks=taskRepository.findAll();
@@ -89,6 +91,31 @@ public class TaskServiceImpl implements TaskService {
 		// TODO Auto-generated method stub
 		return taskRepository.findAllByOrderByDueDateDesc();
 	}
+	@Override
+	public List<Task> getAllTasksForUser(Long userId) {
+	  
+	    return taskRepository.findByUserId(userId);
+	}
+	@Override
+	public List<Task> getAllTasksForUserSortedByDueDate(Long userId) {
+	    return taskRepository.findByUserIdOrderByDueDateAsc(userId);
+	}
+
+	@Override
+	public List<Task> getAllTasksSortedByDueDate() {
+	    return taskRepository.findAllByOrderByDueDateAsc();
+	}
+
+	@Override
+	public List<Task> getAllTasksForUserSortedByDueDateDesc(Long userId) {
+	    return taskRepository.findByUserIdOrderByDueDateDesc(userId);
+	}
+
+	@Override
+	public List<Task> getAllTasksSortedByDueDateDesc() {
+	    return taskRepository.findAllByOrderByDueDateDesc();
+	}
+
 
 
 	

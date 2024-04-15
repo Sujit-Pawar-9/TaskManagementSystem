@@ -5,7 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.demo.model.Task;
+import com.demo.model.User;
+
 import com.demo.service.TaskService;
+import com.demo.service.UserService;
 
 import java.util.List;
 
@@ -17,33 +20,60 @@ public class TaskController {
     private final TaskService taskService;
 
     @Autowired
+    private UserService userService;
+    @Autowired
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
-    // Create a new task
-    @PostMapping("/addnewtask")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-    	System.out.println("task created");
-        Task createdTask = taskService.createTask(task);
-        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
+    @PostMapping("/addnewtask/{userId}")
+    public ResponseEntity<Object> createTask(@RequestBody Task taskRequest, @PathVariable Long userId) {
+        try {
+           
+            User user = userService.getUserById(userId);
+            if (user == null) {
+                return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
+            }
+            
+           
+            Task task = new Task();
+            task.setTitle(taskRequest.getTitle());
+            task.setDescription(taskRequest.getDescription());
+            task.setDueDate(taskRequest.getDueDate());
+            task.setPriority(taskRequest.getPriority());
+            task.setCompleted(taskRequest.getCompleted());
+            task.setTaskCreatedAt(taskRequest.getTaskCreatedAt());
+            task.setUser(user);
+
+            
+            Task createdTask = taskService.createTask(task);
+            
+            
+            return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
+        } catch (Exception e) {
+            
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-//     Get all tasks
-    @GetMapping("/getall")
-    public ResponseEntity<List<Task>> getAllTasks() {
-        System.out.println("task listed");
-        List<Task> tasks = taskService.getAllTasks();
+
+
+    
+    @GetMapping("/getall/{userId}")
+    public ResponseEntity<List<Task>> getAllTasks(@PathVariable Long userId) {
+       
+        List<Task> tasks = taskService.getAllTasksForUser(userId);
         
-        // Print the tasks on the console
+     
         tasks.forEach(task -> System.out.println(task));
 
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Integer id, @RequestBody Task updatedTask) {
         Task existingTask = taskService.getTaskById(id);
-//        System.out.println(existingTask.getTitle());
+
         if (existingTask != null) {
             updatedTask.setId(id);
             Task updatedTaskResult = taskService.updateTask(updatedTask);
@@ -53,7 +83,7 @@ public class TaskController {
         }
     }
 
-    // Delete a task by ID
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
@@ -61,14 +91,10 @@ public class TaskController {
     }
     @PatchMapping("/{id}/task-done")
     public ResponseEntity<String> markTaskAsDone(@PathVariable Integer id) {
-        // Logic to mark the task as done
-        // You can implement this logic using your service layer
-        // For example, you might call a service method to update the task status
-        // Assuming you have a service class called TaskService
+        
         
         taskService.markTaskAsDone(id);
 
-        // Return a success message
         return ResponseEntity.status(HttpStatus.OK).body("Task marked as done successfully");
     }
     @GetMapping("/getTaskbyid/{id}")
@@ -81,26 +107,35 @@ public class TaskController {
         }
     }
 
-
     @GetMapping("/sortedByDueDate")
-    public ResponseEntity<List<Task>> getAllTasksSortedByDueDate() {
-        // Call the repository method to retrieve sorted tasks
-        List<Task> sortedTasks = taskService.findAllByOrderByDueDateAsc();
-        System.out.println("Sorted Tasks:");
-        sortedTasks.forEach(task -> System.out.println(task));
-        return new ResponseEntity<>(sortedTasks, HttpStatus.OK);
+    public ResponseEntity<List<Task>> getAllTasksSortedByDueDate(@RequestParam(required = false) Long userId) {
+        List<Task> tasks;
+        if (userId != null) {
+            tasks = taskService.getAllTasksForUserSortedByDueDate(userId);
+        } else {
+            tasks = taskService.getAllTasksSortedByDueDate();
+        }
+        
+        
+        tasks.forEach(task -> System.out.println(task));
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-    
+
     @GetMapping("/sortedByDueDateDesc")
-    public ResponseEntity<List<Task>> getAllTasksSortedByDueDateDesc() {
-        // Call the service method to retrieve sorted tasks in descending order
-        List<Task> sortedTasks = taskService.findAllByOrderByDueDateDesc();
+    public ResponseEntity<List<Task>> getAllTasksSortedByDueDateDesc(@RequestParam(required = false) Long userId) {
+        List<Task> tasks;
+        if (userId != null) {
+            tasks = taskService.getAllTasksForUserSortedByDueDateDesc(userId);
+        } else {
+            tasks = taskService.getAllTasksSortedByDueDateDesc();
+        }
         
-        // Print sorted tasks on the console
-        System.out.println("Sorted Tasks (Descending ):");
-        sortedTasks.forEach(System.out::println);
         
-        return new ResponseEntity<>(sortedTasks, HttpStatus.OK);
+        tasks.forEach(task -> System.out.println(task));
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
+
 
 }

@@ -1,4 +1,6 @@
 package com.demo.service;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,15 @@ public class UserService implements UserServiceIF{
 	        userRepository.save(user);
 	    }
 
-	    public boolean authenticateUser(String username, String password) {
+	    public User authenticateUser(String username, String password) {
 	        // Logic to authenticate the user
 	        User user = userRepository.findByUsername(username);
-	        return user != null && user.getPassword().equals(password);
+	        return user;
+	    }
+
+	    public User getUserById(Long userId) {
+	        Optional<User> optionalUser = userRepository.findById(userId);
+	        
+	        return optionalUser.orElse(null); // Return the user if found, or null if not found
 	    }
 	}

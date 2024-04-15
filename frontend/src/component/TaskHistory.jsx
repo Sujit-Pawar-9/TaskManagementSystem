@@ -9,7 +9,7 @@ const TaskHistory = () => {
     const [tasks, setTasks] = useState([]);
     const [sortOrder, setSortOrder] = useState("asc"); // State to manage sorting order
     const navigate = useNavigate();
-
+    const userId = sessionStorage["userid"];
     const [filterOption, setFilterOption] = useState("");
    
 
@@ -21,9 +21,9 @@ const TaskHistory = () => {
       try {
           let sortedTasks = [];
           if (sortOrder === "asc") {
-              sortedTasks = await retrieveAllTasksforsort();
+              sortedTasks = await retrieveAllTasksforsort(userId);
           } else {
-              sortedTasks = await retrieveAllTasksforsortdesc();
+              sortedTasks = await retrieveAllTasksforsortdesc(userId);
           }
           setTasks(sortedTasks.data);
       } catch (error) {

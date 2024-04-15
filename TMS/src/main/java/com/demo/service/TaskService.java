@@ -21,6 +21,16 @@ public interface TaskService {
 
 	List<Task> findAllByOrderByDueDateDesc();
 
+	List<Task> getAllTasksForUser(Long userId);
+
+	List<Task> getAllTasksForUserSortedByDueDate(Long userId);
+
+	List<Task> getAllTasksSortedByDueDate();
+
+	List<Task> getAllTasksForUserSortedByDueDateDesc(Long userId);
+
+	List<Task> getAllTasksSortedByDueDateDesc();
+
 //    ApiResponse getTaskById(Integer taskId);
 //
 //    List<Task> getAllTasks(Long userId);

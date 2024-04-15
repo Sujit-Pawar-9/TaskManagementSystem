@@ -9,7 +9,7 @@ import AddTaskComponent from './component/AddTaskComponent'
 import TaskHistory from './component/TaskHistory'
 import EditTask from "./component/EditTask";
 import ViewTask from "./component/ViewTask";
-import FilterTask from "./component/FilterTask";
+
 
 function App() {
   const activeUserId = getLoggedInUserId()
@@ -29,7 +29,7 @@ function App() {
         <HeaderComponent />
         <Routes>
           <Route path='/' element={<WelcomePage />} />
-          <Route path='/tasks' element={<TasksComponent />}/>        
+          <Route path='/tasks' element={<TasksComponent userId={activeUserId} />}/>        
           <Route path='/add-task' element={
             <AuthenticatedRoute>
               <AddTaskComponent userId={activeUserId} />
@@ -37,7 +37,7 @@ function App() {
           } />
           <Route path='/history' element={
             
-              <TaskHistory />
+              <TaskHistory userId={activeUserId} />
            
           } />
           <Route path='/update-task/:id' element={
@@ -47,7 +47,7 @@ function App() {
           } />
           <Route path="/edit-task/:taskId" element={<EditTask />} /> 
           <Route path="/view-task/:taskId" element={<ViewTask />} /> 
-          <Route path="/filter-options" element={<FilterTask />} /> 
+         
           <Route path='/create-account' element={<CreateAccount />} />
           <Route path='/login' element={<LoginComponent />} />
         </Routes>

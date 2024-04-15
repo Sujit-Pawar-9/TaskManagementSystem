@@ -2,6 +2,9 @@ package com.demo.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "task")
 public class Task implements Comparable<Task> {
@@ -27,22 +30,35 @@ public class Task implements Comparable<Task> {
 
     @Column(nullable = false)
     private String priority; // New field for priority
-
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+    private User user;
     // Constructors, getters, and setters
 
     public Task() {
     }
 
-    public Task(String title, String description, String dueDate, Boolean completed, String taskCreatedAt, String priority) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.completed = completed;
-        this.taskCreatedAt = taskCreatedAt;
-        this.priority = priority; // Initialize priority
-    }
+    
 
-    // Getters and setters for priority
+    public Task(Integer id, String title, String description, String dueDate, Boolean completed, String taskCreatedAt,
+			String priority, User user) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.dueDate = dueDate;
+		this.completed = completed;
+		this.taskCreatedAt = taskCreatedAt;
+		this.priority = priority;
+		this.user = user;
+	}
+
+
+
+	// Getters and setters for priority
     
     public String getPriority() {
         return priority;
@@ -100,9 +116,20 @@ public class Task implements Comparable<Task> {
         this.priority = priority;
     }
 
-    // Other getters and setters
 
-    @Override
+    public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+	@Override
     public int compareTo(Task otherTask) {
         // Compare tasks based on due date and priority
         int dueDateComparison = this.getDueDate().compareTo(otherTask.getDueDate());
@@ -113,9 +140,14 @@ public class Task implements Comparable<Task> {
         return dueDateComparison;
     }
 
-    @Override
-    public String toString() {
-        return "Task [id=" + id + ", title=" + title + ", description=" + description + ", dueDate=" + dueDate
-                + ", completed=" + completed + ", taskCreatedAt=" + taskCreatedAt + ", priority=" + priority + "]";
-    }
+
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", title=" + title + ", description=" + description + ", dueDate=" + dueDate
+				+ ", completed=" + completed + ", taskCreatedAt=" + taskCreatedAt + ", priority=" + priority + ", user="
+				+ user + "]";
+	}
+
+    
 }

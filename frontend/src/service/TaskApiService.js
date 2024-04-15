@@ -13,12 +13,16 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error);
 });
 
- export const retrieveAllTasks = () => API_BASE_URL.get('/getall');
-// export const registerApi = (user) => authApiClient.post('/register', user)
-export const retrieveAllTasksforsort = () => API_BASE_URL.get('/sortedByDueDate');
-export const retrieveAllTasksforsortdesc= () => API_BASE_URL.get('/sortedByDueDateDesc');
-export const createTask = (task) => API_BASE_URL.post('/addnewtask',task)
+//  export const retrieveAllTasks = () => API_BASE_URL.get('/getall');
+export const retrieveAllTasks = (userId) => API_BASE_URL.get(`/getall/${userId}`);
+export const retrieveAllTasksforsortdesc = (userId) => API_BASE_URL.get('/sortedByDueDateDesc',{ params: { userId } });
+export const retrieveAllTasksforsort = (userId) => API_BASE_URL.get('/sortedByDueDate', { params: { userId } });
 
+// export const registerApi = (user) => authApiClient.post('/register', user)
+// export const retrieveAllTasksforsort = () => API_BASE_URL.get('/sortedByDueDate');
+// export const retrieveAllTasksforsortdesc= () => API_BASE_URL.get('/sortedByDueDateDesc');
+// export const createTask = (task) => axios.post(`http://localhost:8080/api/v1/tasks/addnewtask`,task)
+export const createTask = (task, userId) => API_BASE_URL.post(`/addnewtask/${userId}`, task);
 export const retrieveTaskById = (taskId) => axios.get(API_BASE_URL + '/' + taskId)
 
 export const getTaskById = (taskId) => API_BASE_URL.get('/getTaskbyid/' + taskId)

@@ -13,6 +13,12 @@ public interface TaskRepository extends JpaRepository<Task,Integer>{
 	List<Task> findAllByOrderByDueDateAsc();
 
 	List<Task> findAllByOrderByDueDateDesc();
+	
+	List<Task> findByUserId(Long userId);
+
+	List<Task> findByUserIdOrderByDueDateAsc(Long userId);
+
+	List<Task> findByUserIdOrderByDueDateDesc(Long userId);
 
 
 }

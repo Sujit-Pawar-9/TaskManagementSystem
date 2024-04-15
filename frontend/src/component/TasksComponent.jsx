@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom"
 import taskDoneSound from '../assets/done.mp3'
 import '../css/tasks.css'
 
-const TasksComponent = ({ userId }) => {
+const TasksComponent = () => {
 
     const [tasks, setTasks] = useState([])
     const navigate = useNavigate()
-
+    const userId = sessionStorage["userid"];
     const doneMusicPlay = () => {
         let audio = new Audio(taskDoneSound)
         audio.play()

@@ -11,6 +11,7 @@ const AddTaskComponent = () => {
     const [completed, setCompleted] = useState(false);
     const taskCreatedAt = new Date().toDateString();
     const navigate = useNavigate();
+    const userId = sessionStorage["userid"];
     const [errors, setErrors] = useState({
         title: '',
         description: '',
@@ -21,8 +22,17 @@ const AddTaskComponent = () => {
         event.preventDefault();
 
         if (validateForm()) {
-            const taskObj = { title, description, dueDate, priority, completed, taskCreatedAt };
-            createTask(taskObj)
+            
+            const taskObj = {
+                title,
+                description,
+                dueDate,
+                priority,
+                completed,
+                taskCreatedAt, 
+            };
+            console.log(userId)
+            createTask(taskObj, userId)
                 .then(() => navigate('/tasks'))
                 .catch(error => console.error(error));
         }

@@ -20,13 +20,23 @@ const LoginComponent = () => {
 
             await loginApi(username, password)
                 .then(response => {
-                    console.log(response.data);
-                    const basicAuth = 'Basic ' + btoa(username + ':' + password)
-                    const role = response.data.role
-                    storeBasicAuth(basicAuth)
-                    saveLoggedUser(response.data.id, username, role)
-                    console.log("hi")
-                    navigate(`/tasks`)
+                    const result = response.data
+                    console.log(result);
+                    console.log("login here check");
+                    saveLoggedUser(response.data.id, username)
+                  
+           
+
+                    if(response.status===200){
+                        sessionStorage["userid"]=response.data.id;
+                        sessionStorage["username"]=username;
+                        sessionStorage["userobj"]=result;
+                        sessionStorage["email"]=response.data.email;
+                        navigate(`/tasks`)
+                    }
+                    else{
+                        navigate(`/login`)
+                    }
                 })
                 .catch(error => console.error(error))
         }

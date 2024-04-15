@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTaskById } from "../service/TaskApiService";
-import "./viewTask.css"; 
+import "../css/viewTask.css"; 
 const ViewTask = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();

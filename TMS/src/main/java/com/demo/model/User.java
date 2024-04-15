@@ -1,9 +1,15 @@
 package com.demo.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -15,7 +21,34 @@ public class User {
     private String password;
     private String email;
 
-    public Long getId() {
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
+    
+    
+    
+    public User() {
+		super();
+	}
+
+    public User(Long id, String username, String password, String email) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		
+	}
+	public User(Long id, String username, String password, String email, List<Task> tasks) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.tasks = tasks;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -46,6 +79,23 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	 @Override
+	    public String toString() {
+	        return "User{" +
+	                "id=" + id +
+	                ", username='" + username + '\'' +
+	                ", email='" + email + '\'' +
+	                '}';
+	    }
     
-    // Other getters and setters for additional attributes
-}
+    
+    }

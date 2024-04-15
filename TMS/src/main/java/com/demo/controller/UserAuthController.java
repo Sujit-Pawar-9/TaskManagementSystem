@@ -35,15 +35,24 @@ public class UserAuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request body");
         }
 
-        // Logic to authenticate user
-        boolean isAuthenticated = userService.authenticateUser(username, password);
-        if (isAuthenticated) {
-            // You may return user details or a token for session management
-            return ResponseEntity.ok("Login successful");
+        User authenticatedUser = userService.authenticateUser(username, password);
+        if (authenticatedUser != null) {
+            // Return the authenticated user details
+            return ResponseEntity.ok(authenticatedUser);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+    @GetMapping("user/{userId}") 
+    public ResponseEntity<?> getUserById(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            return ResponseEntity.ok(user); // Return user data if found
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"); // Return 404 if user not found
+        }
+    }
+
 
 }
 

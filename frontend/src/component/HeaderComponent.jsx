@@ -7,7 +7,7 @@ const HeaderComponent = () => {
 
     const isAuth = isUserLoggedIn()
     const navigate = useNavigate()
-
+    const username=sessionStorage["username"]
     function handleLogout() {
         logout()
         navigate('/login')
@@ -24,7 +24,13 @@ const HeaderComponent = () => {
                 <div className="container">
                     <a className="navbar-brand fw-bold">
                          <img src={logo} alt="logo" width={30} height={30} />
-                         &nbsp;&nbsp;TASK MANAGER  </a>
+                         &nbsp;&nbsp;TASK MANAGER &nbsp;&nbsp;
+                         </a> 
+                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                            <div>👤</div>
+                            <div><strong>{username}</strong></div>
+                            </div>
+
                     <ul className="navbar-nav gap-4">
                         {/* {
                             isAuth &&
