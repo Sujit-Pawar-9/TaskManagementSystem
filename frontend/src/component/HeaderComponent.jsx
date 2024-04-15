@@ -26,10 +26,10 @@ const HeaderComponent = () => {
                          <img src={logo} alt="logo" width={30} height={30} />
                          &nbsp;&nbsp;TASK MANAGER &nbsp;&nbsp;
                          </a> 
-                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                         {isAuth && <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                             <div>👤</div>
-                            <div><strong>{username}</strong></div>
-                            </div>
+                            <div><strong>Hi,{username}</strong></div>
+                            </div> }
 
                     <ul className="navbar-nav gap-4">
                         {/* {
